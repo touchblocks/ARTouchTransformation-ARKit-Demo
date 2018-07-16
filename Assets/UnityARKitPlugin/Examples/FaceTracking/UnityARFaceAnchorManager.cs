@@ -40,16 +40,8 @@ public class UnityARFaceAnchorManager : MonoBehaviour {
 
 	void FaceUpdated (ARFaceAnchor anchorData)
 	{
-		if (anchorPrefab.activeSelf != anchorData.isTracked) 
-		{
-			anchorPrefab.SetActive (anchorData.isTracked);
-		}
-
-		if (anchorData.isTracked) 
-		{
-			anchorPrefab.transform.position = UnityARMatrixOps.GetPosition (anchorData.transform);
-			anchorPrefab.transform.rotation = UnityARMatrixOps.GetRotation (anchorData.transform);
-		}
+		anchorPrefab.transform.position = UnityARMatrixOps.GetPosition (anchorData.transform);
+		anchorPrefab.transform.rotation = UnityARMatrixOps.GetRotation (anchorData.transform);
 	}
 
 	void FaceRemoved (ARFaceAnchor anchorData)

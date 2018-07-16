@@ -241,9 +241,11 @@ namespace UnityEngine.XR.iOS.Utils
 		public serializableUnityARLightData lightData;
 		public serializablePointCloud pointCloud;
 		public serializableUnityARMatrix4x4 displayTransform;
+		public ARWorldMappingStatus worldMappingStatus;
 
 
-		public serializableUnityARCamera( serializableUnityARMatrix4x4 wt, serializableUnityARMatrix4x4 pm, ARTrackingState ats, ARTrackingStateReason atsr, UnityVideoParams uvp, UnityARLightData lightDat, serializableUnityARMatrix4x4 dt, serializablePointCloud spc)
+		public serializableUnityARCamera( serializableUnityARMatrix4x4 wt, serializableUnityARMatrix4x4 pm, ARTrackingState ats, ARTrackingStateReason atsr, UnityVideoParams uvp, UnityARLightData lightDat, serializableUnityARMatrix4x4 dt, serializablePointCloud spc, 
+				ARWorldMappingStatus awms)
 		{
 			worldTransform = wt;
 			projectionMatrix = pm;
@@ -253,16 +255,17 @@ namespace UnityEngine.XR.iOS.Utils
 			lightData = lightDat;
 			displayTransform = dt;
 			pointCloud = spc;
+			worldMappingStatus = awms;
 		}
 
 		public static implicit operator serializableUnityARCamera(UnityARCamera rValue)
 		{
-			return new serializableUnityARCamera(rValue.worldTransform, rValue.projectionMatrix, rValue.trackingState, rValue.trackingReason, rValue.videoParams, rValue.lightData, rValue.displayTransform, rValue.pointCloudData);
+			return new serializableUnityARCamera(rValue.worldTransform, rValue.projectionMatrix, rValue.trackingState, rValue.trackingReason, rValue.videoParams, rValue.lightData, rValue.displayTransform, rValue.pointCloudData, rValue.worldMappingStatus);
 		}
 
 		public static implicit operator UnityARCamera(serializableUnityARCamera rValue)
 		{
-			return new UnityARCamera (rValue.worldTransform, rValue.projectionMatrix, rValue.trackingState, rValue.trackingReason, rValue.videoParams, rValue.lightData, rValue.displayTransform, rValue.pointCloud);
+			return new UnityARCamera (rValue.worldTransform, rValue.projectionMatrix, rValue.trackingState, rValue.trackingReason, rValue.videoParams, rValue.lightData, rValue.displayTransform, rValue.pointCloud, rValue.worldMappingStatus);
 		}
 
 
@@ -529,15 +532,13 @@ namespace UnityEngine.XR.iOS.Utils
 		public serializableFaceGeometry faceGeometry;
 		public Dictionary<string, float> arBlendShapes;
 		public byte[] identifierStr;
-		public bool isTracked;
 
-		public serializableUnityARFaceAnchor( serializableUnityARMatrix4x4 wt, serializableFaceGeometry fg, Dictionary<string, float> bs, byte [] idstr, bool bIsTracked)
+		public serializableUnityARFaceAnchor( serializableUnityARMatrix4x4 wt, serializableFaceGeometry fg, Dictionary<string, float> bs, byte [] idstr)
 		{
 			worldTransform = wt;
 			faceGeometry = fg;
 			arBlendShapes = bs;
 			identifierStr = idstr;
-			isTracked = bIsTracked;
 		}
 
 
@@ -552,7 +553,7 @@ namespace UnityEngine.XR.iOS.Utils
 			serializableUnityARMatrix4x4 wt = rValue.transform;
 			serializableFaceGeometry sfg = rValue.faceGeometry;
 			byte[] idstr = Encoding.UTF8.GetBytes (rValue.identifierStr);
-			return new serializableUnityARFaceAnchor(wt, sfg, rValue.blendShapes, idstr, rValue.isTracked);
+			return new serializableUnityARFaceAnchor(wt, sfg, rValue.blendShapes, idstr);
 		}
 		#endif
 	};
