@@ -30,9 +30,11 @@ public class PlacementController : MonoBehaviour {
                     allowPlacement = false;
 
                     DemoControls demoControls = GameObject.FindObjectOfType<DemoControls>();
-                    ARTouchTransformation arTouchTransformation = myob.GetComponent<ARTouchTransformation>();
-                    arTouchTransformation.GetComponent<LeanSelectable>().OnSelect.AddListener((LeanFinger finger) => demoControls.OnSelect(arTouchTransformation.gameObject));
-                    arTouchTransformation.GetComponent<LeanSelectable>().OnDeselect.AddListener(demoControls.OnDeSelect);
+                    if(demoControls){
+                        ARTouchTransformation arTouchTransformation = myob.GetComponent<ARTouchTransformation>();
+                        arTouchTransformation.GetComponent<LeanSelectable>().OnSelect.AddListener((LeanFinger finger) => demoControls.OnSelect(arTouchTransformation.gameObject));
+                        arTouchTransformation.GetComponent<LeanSelectable>().OnDeselect.AddListener(demoControls.OnDeSelect);
+                    }
                 }
                 return true;
             }
@@ -58,9 +60,11 @@ public class PlacementController : MonoBehaviour {
                     GameObject myob = Instantiate(m_placementObject, hit.point, hit.transform.rotation);
                     allowPlacement = false;
                     DemoControls demoControls = GameObject.FindObjectOfType<DemoControls>();
-                    ARTouchTransformation arTouchTransformation = myob.GetComponent<ARTouchTransformation>();
-        arTouchTransformation.GetComponent<LeanSelectable>().OnSelect.AddListener((LeanFinger finger) => demoControls.OnSelect(arTouchTransformation.gameObject));
-                    arTouchTransformation.GetComponent<LeanSelectable>().OnDeselect.AddListener(demoControls.OnDeSelect);
+                    if(demoControls){
+                        ARTouchTransformation arTouchTransformation = myob.GetComponent<ARTouchTransformation>();
+                        arTouchTransformation.GetComponent<LeanSelectable>().OnSelect.AddListener((LeanFinger finger) => demoControls.OnSelect(arTouchTransformation.gameObject));
+                        arTouchTransformation.GetComponent<LeanSelectable>().OnDeselect.AddListener(demoControls.OnDeSelect);
+                    }
                 }
             }
         }
